@@ -16,9 +16,13 @@ class CreateSkillsTable extends Migration
         Schema::create('skills', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug');
+
             $table->timestamps();
         });
     }
+
+    
 
     /**
      * Reverse the migrations.
