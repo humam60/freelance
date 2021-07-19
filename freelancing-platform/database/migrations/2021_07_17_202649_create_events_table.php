@@ -21,7 +21,7 @@ class CreateEventsTable extends Migration
             $table->string('title');
             $table->string('location');
             $table->string('start_date');
-            $table->unsignedBigInteger(user_id);
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('slug');
             $table->timestamps();
