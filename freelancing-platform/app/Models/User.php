@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Laratrust\Traits\LaratrustUserTrait;
 
 
 class User extends Authenticatable
 {
+    use LaratrustUserTrait;
     use HasApiTokens,HasFactory, Notifiable;
 
     /**
@@ -23,6 +25,8 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -42,4 +46,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-}
+
+    /**
+     * Get all of the Events for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+        public function Events(): HasMany
+        {
+            return $this->hasMany(Events::class, 'user_id', 'id');
+        }
+
+        public function skill(): BelongsToMany
+            {
+        return $this->belongsToMany(skill::class, 'user__skills', 'user_id', 'skill_id');
+            }
+    }

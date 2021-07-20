@@ -11,7 +11,17 @@ class Events extends Model
     use HasFactory,HasSlug;
     protected $fillable=['title','slug'];
 
-    public function getSlugEvent() : SlugOptions
+
+    /**
+     * Get the user that owns the Events
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+    public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('title')

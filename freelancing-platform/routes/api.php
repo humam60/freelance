@@ -30,9 +30,9 @@ Route::group([
         Route::get('user', [AuthController::class,'user']);
     });
 });
-Route::middleware('auth:api')->group(function () {
+// Route::middleware('auth:api')->group(function () {
 Route::resource('city', CityController::class);
-});
+//});
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();

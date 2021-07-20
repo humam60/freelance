@@ -11,7 +11,7 @@ class Location extends Model
     use HasFactory,HasSlug;
     protected $fillable=['name','slug'];
 
-    public function getSlugLocation() : SlugOptions
+    public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')

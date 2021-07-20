@@ -12,9 +12,15 @@ class skill extends Model
     protected $fillable=['name','slug'];
 
     
-   
-    
-    public function getSlugrskill() : SlugOptions
+
+
+public function User(): BelongsToMany
+{
+    return $this->belongsToMany(User::class, 'user__skills', 'skill_id', 'user_id');
+}
+
+
+    public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')

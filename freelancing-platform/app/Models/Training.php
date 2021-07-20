@@ -19,7 +19,7 @@ class Training extends Model
         return $this->hasOne('App\Models\training_cat');
     }
     
-    public function getSlugtraining_cat() : SlugOptions
+    public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')

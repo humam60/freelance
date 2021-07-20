@@ -22,7 +22,7 @@ class request extends Model
         return $this->belongsTo('App\Models\User');
     }
     
-    public function getSlugrequest() : SlugOptions
+    public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('title')

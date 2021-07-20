@@ -12,12 +12,17 @@ class training_cat extends Model
     protected $fillable=['name','slug'];
 
     
-    public function Training()
+    /**
+     * Get all of the Training for the training_cat
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function Training(): HasMany
     {
-        return $this->belongsTo('App\Models\Training');
+        return $this->hasMany(Training::class, 'training_cat_id', 'id');
     }
     
-    public function getSlugtraining_cat() : SlugOptions
+    public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')

@@ -11,7 +11,20 @@ class City extends Model
     use HasFactory,HasSlug;
     protected $fillable=['name','slug'];
 
-    public function getSlugCity() : SlugOptions
+        
+    
+        public function User(): HasMany
+        {
+            return $this->hasMany(User::class, 'city_id', 'id');
+        }
+
+        
+        public function training(): HasMany
+        {
+            return $this->hasMany(training::class, 'city_id', 'id');
+        }
+
+    public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
