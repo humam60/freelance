@@ -14,7 +14,7 @@ class skill extends Model
     
 
 
-public function User(): BelongsToMany
+public function User()
 {
     return $this->belongsToMany(User::class, 'user__skills', 'skill_id', 'user_id');
 }

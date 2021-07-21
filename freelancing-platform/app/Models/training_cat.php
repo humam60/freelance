@@ -17,7 +17,7 @@ class training_cat extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function Training(): HasMany
+    public function Training()
     {
         return $this->hasMany(Training::class, 'training_cat_id', 'id');
     }

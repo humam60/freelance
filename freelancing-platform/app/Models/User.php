@@ -52,12 +52,12 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-        public function Events(): HasMany
+        public function Events()
         {
             return $this->hasMany(Events::class, 'user_id', 'id');
         }
 
-        public function skill(): BelongsToMany
+        public function skill()
             {
         return $this->belongsToMany(skill::class, 'user__skills', 'user_id', 'skill_id');
             }

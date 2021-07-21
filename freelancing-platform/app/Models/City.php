@@ -19,7 +19,7 @@ class City extends Model
         }
 
         
-        public function training(): HasMany
+        public function training()
         {
             return $this->hasMany(training::class, 'city_id', 'id');
         }
