@@ -3,39 +3,51 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\City;
-use App\Models\Training;
 use App\Models\skill;
-use App\Models\category;
 
-class CityController extends Controller
+class SkillController extends Controller
 {
-    //
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        // $cities = auth()->user()->posts;
- 
-        // return response()->json([
-        //     'success' => true,
-        //     'data' => $cities
-        // ]);
-
-         $cities = City::all();
-        return response([ 'cities' =>  $cities, 
-        'message' => 'Successful'], 200);
+        $skill = skill::get()->toJson(JSON_PRETTY_PRINT);
+        return response($skill, 200);
     }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         //$request['user_id']=Auth()->user()->id;
         $request->validate([
             'name'=>'required',
-             ]);
+            
+            
+        ]);
         $input=$request->all();
 
        
-        $event=City::create($input);
+        $event=skill::create($input);
         return response()->json([
-            'message' => 'Successfully created City!' ], 201);  
+            'message' => 'Successfully created skill!' ], 201);  
     }
 
     /**
@@ -46,12 +58,12 @@ class CityController extends Controller
      */
     public function show($id)
     {
-        if (City::where('id', $id)->exists()) {
-            $City = City::where('id', $id)->get()->toJson(JSON_PRETTY_PRINT);
-            return response($City, 200);
+        if (skill::where('id', $id)->exists()) {
+            $skill = skill::where('id', $id)->get()->toJson(JSON_PRETTY_PRINT);
+            return response($skill, 200);
           } else {
             return response()->json([
-              "message" => "City not found"
+              "message" => "skill not found"
             ], 404);
           }
     }
@@ -76,19 +88,19 @@ class CityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (City::where('id', $id)->exists()) {
-            $City = City::find($id);
+        if (skill::where('id', $id)->exists()) {
+            $skill = skill::find($id);
     
-            $City->name = is_null($request->name) ? $City->name : $request->name;
+            $skill->name = is_null($request->name) ? $skill->name : $request->name;
            
-            $City->save();
+            $skill->save();
     
             return response()->json([
               "message" => "records updated successfully".$request->name
             ], 200);
           } else {
             return response()->json([
-              "message" => "City not found"
+              "message" => "skill not found"
             ], 404);
           }
     }
@@ -101,18 +113,17 @@ class CityController extends Controller
      */
     public function destroy($id)
     {
-        if(City::where('id', $id)->exists()) {
-            $City = City::find($id);
-            $City->delete();
+        if(skill::where('id', $id)->exists()) {
+            $skill = skill::find($id);
+            $skill->delete();
     
             return response()->json([
               "message" => "records deleted"
             ], 202);
           } else {
             return response()->json([
-              "message" => "City not found"
+              "message" => "skill not found"
             ], 404);
           }
     }
 }
-

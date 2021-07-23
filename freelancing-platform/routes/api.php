@@ -4,7 +4,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\SkillController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +35,14 @@ Route::group([
         Route::get('user', [AuthController::class,'user']);
     });
 });
-// Route::middleware('auth:api')->group(function () {
-Route::resource('city', CityController::class);
+//Route::middleware('auth:api')->group(function () {
+    Route::resource('category', CategoryController::class);
+    Route::resource('event', EventController::class);
+    Route::resource('city', CityController::class);
+    Route::resource('location', LocationController::class);
+    Route::resource('skill', SkillController::class);
+
+    Route::post('upload', [ImageController::class, 'upload']);
 //});
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
