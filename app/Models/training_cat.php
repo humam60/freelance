@@ -6,25 +6,26 @@ use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Events extends Model
+class training_cat extends Model
 {
     use HasFactory,HasSlug;
-    protected $fillable=['title','location','start_date','user_id','slug'];
+    protected $fillable=['name','slug'];
 
-
+    
     /**
-     * Get the user that owns the Events
+     * Get all of the Training for the training_cat
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function user()
+    public function Training()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->hasMany(Training::class, 'training_cat_id', 'id');
     }
+    
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('title')
+            ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
 }

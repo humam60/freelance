@@ -24,6 +24,7 @@ class CreateTrainingsTable extends Migration
             $table->foreign('training_cat_id')->references('id')->on('training_cats');
             $table->unsignedBigInteger('city_id');
             $table->foreign('city_id')->references('id')->on('cities');
+
             $table->string('descreption');
             $table->string('slug');
 

@@ -6,21 +6,22 @@ use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Events extends Model
+class request extends Model
 {
     use HasFactory,HasSlug;
-    protected $fillable=['title','location','start_date','user_id','slug'];
+    protected $fillable=['title','descreption','category_id','skill_id','user_id','slug'];
 
-
-    /**
-     * Get the user that owns the Events
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
+    
+    public function Category()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->hasOne('App\Models\Category');
     }
+
+    public function User()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+    
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
