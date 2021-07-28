@@ -36,11 +36,11 @@ Route::group(['prefix' => 'auth'], function () {
     Route::group(['middleware' => 'auth:api'], function() {
         Route::get('logout', [AuthController::class,'logout']);
         Route::get('user', [AuthController::class,'user']);          
-        
+});      
 
 }); 
 
-       Route::group(['middleware' =>['api','changelanguage']], function() {
+Route::middleware('auth:api','changelanguage')->group(function() {
         Route::resource('offers', OffersController::class); 
         Route::resource('requests',RequestsController::class);
         Route::resource('trainings', TrainingsController::class);
@@ -53,16 +53,16 @@ Route::group(['prefix' => 'auth'], function () {
         Route::post('upload', [ImageController::class, 'upload']);
 
  });
-        Route::group(['middleware' =>['role:admin']], function() {
-            Route::resource('requests', RequestsController::class);
-            Route::resource('offers', RequestsController::class);
-            Route::resource('Permission', PermissionController::class);
-            Route::resource('roles', RolesController::class);
-          
-});
     
+          
 
-
+    
+Route::group(['middleware' =>['role:admin']], function() {
+    Route::resource('requests', RequestsController::class);
+    Route::resource('offers', RequestsController::class);
+    Route::resource('Permission', PermissionController::class);
+    Route::resource('roles', RolesController::class);
+});
 
   
 

@@ -57,6 +57,16 @@ class User extends Authenticatable
             return $this->hasMany(Events::class, 'user_id', 'id');
         }
 
+            /**
+             * Get the profiles associated with the User
+             *
+             * @return \Illuminate\Database\Eloquent\Relations\HasOne
+             */
+            public function profiles()
+            {
+                return $this->hasOne(profiles::class, 'user_id', 'id');
+            }
+
         public function skill()
             {
         return $this->belongsToMany(skill::class, 'user__skills', 'user_id', 'skill_id');
