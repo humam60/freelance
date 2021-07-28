@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\API;
-use App\Http\Controllers\API\BaseController as BaseController;
+namespace App\Http\Controllers;
+use App\Http\Controllers\BaseController as BaseController;
 use App\Models\Offers;
 use Illuminate\Http\Request;
 use Validator;
@@ -16,13 +16,10 @@ class OffersController extends BaseController
     public function index()
     {
         $offers = Offers::all();
-        return $this->sendResponse($offers->toArry(), 'books read successfully');
-        // return response()->json([
-        // "success" => true,
-        // "message" => "offers List",
-        // "data" => $offers
-        // ]);
-    }
+        return $this->sendResponse($offers, 'offers read successfully');
+        
+
+    }  
 
     /**
      * Show the form for creating a new resource.
@@ -44,25 +41,21 @@ class OffersController extends BaseController
     {
         $input = $request->all();
         $validator = Validator::make($input, [
-        'name' => 'required',
         'title' => 'required',
         'description' => 'required',
-        // 'category_id' => 'required',
-        // 'skill_id' => 'required',
-        // 'user_id' => 'required'
+        'category_id' => 'required',
+        'skill_id' => 'required',
+        'user_id' => 'required',
         
         ]);
         if($validator->fails()){
         return $this->sendError('Validation Error.', $validator->errors());       
         }
+
         $offers = Offers::create($input);
 
-        return $this->sendResponse($offers->toArray(), 'offers created successfully.');
-        // return response()->json([
-        // "success" => true,
-        // "message" => "offers created successfully.",
-        // "data" => $offers
-        // ]);
+        return $this->sendResponse($offers, 'offers created successfully.');
+        
     }
 
     /**
@@ -78,12 +71,8 @@ class OffersController extends BaseController
         return $this->sendError('offers not found.');
         }
 
-        return $this->sendResponse($offers->toArray(), 'offers created successfully.');
-        // return response()->json([
-        // "success" => true,
-        // "message" => "offers retrieved successfully.",
-        // "data" => $offers
-        // ]);
+        return $this->sendResponse($offers, 'offers created successfully.');
+        
     }
 
     /**
@@ -108,31 +97,27 @@ class OffersController extends BaseController
     {
         $input = $request->all();
         $validator = Validator::make($input, [
-        'name' => 'required',
         'title' => 'required',
         'description' => 'required',
         'category_id' => 'required',
         'user_id' => 'required',
-        'skill_id' => 'required'
+        'skill_id' => 'required',
+       
        
         ]);
         if($validator->fails()){
         return $this->sendError('Validation Error.', $validator->errors());       
         }
-        $offers->name = $input['name'];
+    
         $offers->title = $input['title'];
         $offers->description = $input['description'];
         $offers->category_id = $input['category_id'];
         $offers->user_id = $input['user_id'];
         $offers->skill_id = $input['skill_id'];
+       
 
         $offers->save();
-        return $this->sendResponse($offers->toArray(), 'offers updated successfully.');
-        // return response()->json([
-        // "success" => true,
-        // "message" => "offers updated successfully.",
-        // "data" => $offers
-        // ]);
+        return $this->sendResponse($offers, 'offers updated successfully.');
     }
 
     /**
@@ -144,12 +129,7 @@ class OffersController extends BaseController
     public function destroy($id)
     {
         $offers->delete();
-        return $this->sendResponse($offers->toArray(), 'offers destoried successfully.');
-        // return response()->json([
-        // "success" => true,
-        // "message" => "offers deleted successfully.",
-        // "data" => $offers
-        // ]);
+        return $this->sendResponse($offers, 'offers destoried successfully.');
 
     }
 }

@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Requests;
-
+use App\Http\Controllers\BaseController as BaseController;
 use Illuminate\Http\Request;
+use App\Models\Training_cat;
 use Validator;
 
-class RequestsController extends Controller
+class TrainingsCatController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -16,12 +15,10 @@ class RequestsController extends Controller
      */
     public function index()
     {
-        $requests = Requests::all();
-        return response()->json([
-        "success" => true,
-        "message" => "requests List",
-        "data" => $requests
-        ]);
+        $training_cat = Training_cat::all();
+        return $this->sendResponse($training_cat, 'training_cat read successfully');
+       
+        
     }
 
     /**
@@ -37,28 +34,21 @@ class RequestsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\request  $requests
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $input = $requests->all();
+        $input = $request->all();
         $validator = Validator::make($input, [
-        'title' => 'required',
-        'category_id' => 'required',
-        'skill_id' => 'required',
-        'user_id' => 'required',
-        
+        'title' => 'required'
         ]);
         if($validator->fails()){
         return $this->sendError('Validation Error.', $validator->errors());       
         }
-        $requests = requests::create($input);
-        return response()->json([
-        "success" => true,
-        "message" => "requests created successfully.",
-        "data" => $requests
-        ]);
+        $training_cat = Training_cat::create($input);
+
+        return $this->sendResponse($training_cat, 'training_cat created successfully.');
     }
 
     /**
@@ -69,15 +59,12 @@ class RequestsController extends Controller
      */
     public function show($id)
     {
-        $requests = Requests::find($id);
-        if (is_null($requests)) {
-        return $this->sendError('requests not found.');
+        $training_cat = Training_cat::find($id);
+        if (is_null($training_cat)) {
+        return $this->sendError('training_cat not found.');
         }
-        return response()->json([
-        "success" => true,
-        "message" => "requests retrieved successfully.",
-        "data" => $requests
-        ]);
+
+        return $this->sendResponse($training_cat, 'training_cat created successfully.');
     }
 
     /**
@@ -94,33 +81,24 @@ class RequestsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\requests  $requests
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $input = $requests->all();
+        
+        $input = $request->all();
         $validator = Validator::make($input, [
         'title' => 'required',
-        'category_id' => 'required',
-        'user_id' => 'required',
-        'skill_id' => 'required'
+       
         ]);
-
         if($validator->fails()){
         return $this->sendError('Validation Error.', $validator->errors());       
         }
-        $requests->title = $input['title'];
-        $requests->category_id = $input['category_id'];
-        $requests->user_id = $input['user_id'];
-        $requests->skill_id = $input['skill_id'];
-        $requests->save();
-        return response()->json([
-        "success" => true,
-        "message" => "requests updated successfully.",
-        "data" => $requests
-        ]);
+        $training_cat->tilte = $input['tilte'];
+        $training_cat->save();
+        return $this->sendResponse($training_cat, 'training_cat updated successfully.');
     }
 
     /**
@@ -131,12 +109,7 @@ class RequestsController extends Controller
      */
     public function destroy($id)
     {
-        $requests->delete();
-        return response()->json([
-        "success" => true,
-        "message" => "offers deleted successfully.",
-        "data" => $offers
-        ]);
-
+        $training_cat->delete();
+        return $this->sendResponse($training_cat, 'training_cat destoried successfully.');
     }
 }

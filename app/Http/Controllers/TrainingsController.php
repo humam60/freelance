@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\API\BaseController as BaseController;
+use App\Http\Controllers\BaseController as BaseController;
 use App\Models\Training;
 use Validator;
 
-class TrainingsController extends Controller
+class TrainingsController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class TrainingsController extends Controller
     public function index()
     {
         $training = Training::all();
-        return $this->sendResponse($training->toArry(), 'training read successfully');
+        return $this->sendResponse($training, 'training read successfully');
        
         
     }
@@ -53,7 +53,7 @@ class TrainingsController extends Controller
         }
         $training = Training::create($input);
 
-        return $this->sendResponse($training->toArray(), 'training created successfully.');
+        return $this->sendResponse($training, 'training created successfully.');
     }
 
     /**
@@ -69,7 +69,7 @@ class TrainingsController extends Controller
         return $this->sendError('training not found.');
         }
 
-        return $this->sendResponse($training->toArray(), 'training created successfully.');
+        return $this->sendResponse($training, 'training created successfully.');
     }
 
     /**
@@ -112,7 +112,7 @@ class TrainingsController extends Controller
         
 
         $training->save();
-        return $this->sendResponse($training->toArray(), 'training updated successfully.');
+        return $this->sendResponse($training, 'training updated successfully.');
     }
 
     /**
@@ -124,6 +124,6 @@ class TrainingsController extends Controller
     public function destroy($id)
     {
         $training->delete();
-        return $this->sendResponse($training->toArray(), 'training destoried successfully.');
+        return $this->sendResponse($training, 'training destoried successfully.');
     }
 }

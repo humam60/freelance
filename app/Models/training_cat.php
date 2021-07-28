@@ -6,7 +6,7 @@ use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class training_cat extends Model
+class Training_cat extends Model
 {
     use HasFactory,HasSlug;
     protected $fillable=['name','slug'];

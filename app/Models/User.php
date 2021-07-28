@@ -61,12 +61,17 @@ class User extends Authenticatable
             {
         return $this->belongsToMany(skill::class, 'user__skills', 'user_id', 'skill_id');
             }
-<<<<<<< HEAD:app/Models/User.php
 
         public function offers()
             {
         return $this->hasMAny(Offers::class, 'user_id');
-            }   
-=======
->>>>>>> 3a93cc6889084c4015c27422aa145b23c298dbda:freelancing-platform/app/Models/User.php
+            } 
+            
+            
+            public function role()
+            {
+        return $this->belongsTo(Role::class);
+            } 
+
+
     }

@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $Category = Category::get()->toJson(JSON_PRETTY_PRINT);
+        $Category = Category::select('id','title_'.app()-> getLocale() .' as  title')->get()->toJson(JSON_PRETTY_PRINT);
         return response($Category, 200);
     }
 

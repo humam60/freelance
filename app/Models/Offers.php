@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
     use HasFactory,HasSlug;
     // use HasSlug;
 
-    protected $fillable=['title','descreption','category_id','skill_id','user_id','slug'];
+    protected $fillable=['title','description','category_id','user_id','skill_id'];
 
 
     
@@ -30,6 +30,13 @@ use Illuminate\Database\Eloquent\Model;
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    public function skill()
+    {
+        return $this->belongsTo('App\Models\Skill','skill_id');
+    }
+
+    
     
     public function getSlugOptions() : SlugOptions
     {
